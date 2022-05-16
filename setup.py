@@ -11,7 +11,7 @@ if sys.version_info < (3,):
     sys.exit('Sorry, Python3 is required.')
 
 setup(
-    name='nlp-service',
+    name='nlpservice',
     version='0.0.1',
     description='Mapping a variable-length sentence to a fixed-length vector using BERT model (Server)',
     url='https://github.com/shibing624/nlp-service',
