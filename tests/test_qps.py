@@ -6,10 +6,10 @@
 import os
 import time
 from loguru import logger
+from text2vec import SentenceModel
 import sys
 
 sys.path.append('..')
-from sentence_transformers import SentenceTransformer
 
 logger.add('test.log')
 pwd_path = os.path.abspath(os.path.dirname(__file__))
@@ -20,7 +20,7 @@ def test_local_model_speed():
             '花呗更改绑定银行卡']
     print("data:", data)
     num_tokens = sum([len(i) for i in data])
-    model = SentenceTransformer('shibing624/text2vec-base-chinese')
+    model = SentenceModel('shibing624/text2vec-base-chinese')
     for j in range(10):
         tmp = data * (2 ** j)
         c_num_tokens = num_tokens * (2 ** j)
