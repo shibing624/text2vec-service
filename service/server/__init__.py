@@ -10,8 +10,7 @@ import threading
 import time
 from collections import defaultdict
 from datetime import datetime
-from multiprocessing import Process
-from multiprocessing.pool import Pool
+from torch.multiprocessing import Pool, Process, set_start_method
 
 import numpy as np
 import zmq
@@ -62,8 +61,9 @@ class BertServer(threading.Thread):
         }
         self.processes = []
         logger.info('load nlp model, could take a while...')
-        with Pool(processes=1) as pool:
-            self.model = pool.apply(build_model, (self.model_dir, self.max_seq_len,))
+        # with Pool(processes=1) as pool:
+        #     self.model = pool.apply(build_model, (self.model_dir, self.max_seq_len,))
+        self.model = build_model(self.model_dir, self.max_seq_len)
         if self.model:
             logger.info(self.model)
         else:
