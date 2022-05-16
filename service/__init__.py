@@ -3,6 +3,7 @@
 @author:XuMing(xuming624@qq.com)
 @description: 
 """
-from version import __version__
-from client import ConcurrentBertClient, BertClient
-from server import BertServer, BertWorker, ServerCmd, BertHTTPProxy
+
+from service.version import __version__
+from service.client import ConcurrentBertClient, BertClient
+from service.server import BertServer, BertWorker, ServerCmd, BertHTTPProxy

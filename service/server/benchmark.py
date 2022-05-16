@@ -4,10 +4,6 @@ import time
 
 from numpy import mean
 from copy import deepcopy
-import sys
-
-sys.path.append('..')
-from service.server import BertServer
 
 
 class BenchmarkClient(threading.Thread):
@@ -36,6 +32,10 @@ class BenchmarkClient(threading.Thread):
 
 
 def run_benchmark(args):
+    import sys
+
+    sys.path.append('..')
+    from service.server import BertServer
     # load vocabulary
     with open(args.client_vocab_file, encoding='utf8') as fp:
         vocab = list(set(vv for v in fp for vv in v.strip().split()))

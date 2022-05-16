@@ -21,7 +21,6 @@ from loguru import logger
 
 sys.path.append('..')
 from service.server.model import build_model
-from service.server.benchmark import run_benchmark
 from service.server.helper import (
     auto_bind, get_run_args, get_benchmark_parser,
     get_shutdown_parser, send_ndarray,
