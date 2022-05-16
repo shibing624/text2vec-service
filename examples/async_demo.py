@@ -19,7 +19,7 @@ def send_without_block(bc, data, repeat=10):
 
 
 if __name__ == '__main__':
-    bc = BertClient(port=int(sys.argv[1]), port_out=int(sys.argv[2]))
+    bc = BertClient()
     num_repeat = 20
 
     data = ['如何更换花呗绑定银行卡',
@@ -38,8 +38,8 @@ if __name__ == '__main__':
     # this time fetch them one by one, due to the async encoding and server scheduling
     # sending order is NOT preserved!
     for v in bc.fetch():
-        print('received %s, shape %s' % (v.id, v.content.shape))
-
+        print(v)
+        print('received %s, shape %s' % (v.id, v.embedding.shape))
 
     # finally let's do encode-fetch at the same time but in async mode
     # we do that by building an endless data stream, generating data in an extremely fast speed
@@ -47,6 +47,5 @@ if __name__ == '__main__':
         while True:
             yield data
 
-
     for j in bc.encode_async(text_gen(), max_num_batch=20):
-        print('received %d : %s' % (j.id, j.content))
+        print('received %d : %s' % (j.id, j.embedding))
