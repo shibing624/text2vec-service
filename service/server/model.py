@@ -4,13 +4,13 @@
 @description: 
 """
 from loguru import logger
-from sentence_transformers import SentenceTransformer
+from text2vec import SentenceModel
 
 
 def build_model(model_dir):
     try:
         logger.info('model dir: %s' % model_dir)
-        model = SentenceTransformer(model_dir)
+        model = SentenceModel(model_dir)
         return model
     except Exception as e:
         logger.error(f'fail to build model!, {e}', exc_info=True)

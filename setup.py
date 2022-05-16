@@ -27,7 +27,7 @@ setup(
         'pyzmq>=17.1.0',
         'loguru',
         'GPUtil>=1.3.0',
-        'sentence-transformers',
+        'text2vec',
         'transformers>=4.6.0',
         'numpy',
     ],
