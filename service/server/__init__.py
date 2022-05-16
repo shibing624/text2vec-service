@@ -8,7 +8,6 @@ import sys
 import multiprocessing
 import threading
 import time
-import torch
 from collections import defaultdict
 from datetime import datetime
 from multiprocessing import Process
@@ -29,8 +28,6 @@ from service.server.helper import (
 )
 from service.server.http_proxy import BertHTTPProxy
 from service.server.zmq_decor import multi_socket
-
-torch.multiprocessing.set_start_method('spawn')
 
 
 class ServerCmd:
@@ -460,10 +457,9 @@ class BertWorker(Process):
     @zmqd.socket(zmq.PUSH)
     @multi_socket(zmq.PULL, num_socket='num_concurrent_socket')
     def _run(self, sink_embed, sink_token, *receivers):
-        # Windows does not support logger in MP environment, thus get a new logger
-        # inside the process for better compatibility
-        logger.info('use device %s, loaded model.' %
-                    ('cpu' if self.device_id < 0 else ('gpu: %d' % self.device_id)))
+        if self.model:
+            logger.info('use device %s, loaded model.' %
+                        ('cpu' if self.device_id < 0 else ('gpu: %d' % self.device_id)))
 
         for sock, addr in zip(receivers, self.worker_address):
             sock.connect(addr)
@@ -479,7 +475,7 @@ class BertWorker(Process):
         for sock in socks:
             poller.register(sock, zmq.POLLIN)
 
-        logger.info('ready and listening!')
+        logger.info('model ready and listening!')
         self.is_ready.set()
 
         while not self.exit_flag.is_set():

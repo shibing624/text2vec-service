@@ -3,6 +3,7 @@
 @author:XuMing(xuming624@qq.com)
 @description: 
 """
+import torch
 import sys
 
 sys.path.append('../..')
@@ -15,6 +16,7 @@ from service.server.helper import (
 
 
 def main():
+    torch.multiprocessing.set_start_method('spawn')
     with BertServer(get_run_args()) as server:
         server.join()
 

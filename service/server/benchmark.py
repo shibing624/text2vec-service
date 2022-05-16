@@ -11,18 +11,17 @@ class BenchmarkClient(threading.Thread):
         super().__init__()
         self.batch = [' '.join(random.choices(vocab, k=cargs.max_seq_len)) for _ in range(cargs.client_batch_size)]
         self.num_repeat = cargs.num_repeat
-        self.avg_time = 0
+        self.avg_time = 0.00001
         self.port = cargs.port
         self.port_out = cargs.port_out
 
     def run(self):
         try:
-            from bert_serving.client import BertClient
+            from service.client import BertClient
         except ImportError:
-            raise ImportError('BertClient module is not available, it is required for benchmarking.'
-                              'Please use "pip install -U nlp-client" to install it.')
+            raise ImportError('BertClient module is not available, it is required for benchmarking.')
         with BertClient(port=self.port, port_out=self.port_out,
-                        show_server_config=True, check_version=False, check_length=False) as bc:
+                        show_server_config=True, check_length=False) as bc:
             time_all = []
             for _ in range(self.num_repeat):
                 start_t = time.perf_counter()

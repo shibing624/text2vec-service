@@ -23,8 +23,7 @@ Response = namedtuple('Response', ['id', 'embedding', 'tokens'])
 class BertClient(object):
     def __init__(self, ip='0.0.0.0', port=5555, port_out=5556,
                  output_fmt='ndarray', show_server_config=False,
-                 identity=None, check_version=True, check_length=True,
-                 check_token_info=True, ignore_all_checks=False,
+                 identity=None, check_length=True, ignore_all_checks=False,
                  timeout=-1):
         """ A client object connected to a BertServer
 
@@ -43,9 +42,7 @@ class BertClient(object):
             # bc is automatically closed out of the context
 
         :type timeout: int
-        :type check_version: bool
         :type check_length: bool
-        :type check_token_info: bool
         :type ignore_all_checks: bool
         :type identity: str
         :type show_server_config: bool
@@ -59,9 +56,7 @@ class BertClient(object):
         :param output_fmt: the output format of the sentence encodes, either in numpy array or python List[List[float]] (ndarray/list)
         :param show_server_config: whether to show server configs when first connected
         :param identity: the UUID of this client
-        :param check_version: check if server has the same version as client, raise AttributeError if not the same
         :param check_length: check if server `max_seq_len` is less than the sentence length before sent
-        :param check_token_info: check if server can return tokenization
         :param ignore_all_checks: ignore all checks, set it to True if you are not sure whether the server is ready when constructing BertClient()
         :param timeout: set the timeout (milliseconds) for receive operation on the client, -1 means no timeout and wait until result returns
         """
@@ -96,7 +91,7 @@ class BertClient(object):
         self.length_limit = 0
         self.token_info_available = False
 
-        if not ignore_all_checks and (check_version or show_server_config or check_length or check_token_info):
+        if not ignore_all_checks and (show_server_config or check_length):
             s_status = self.server_config
 
             if check_length:
