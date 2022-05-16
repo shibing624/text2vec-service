@@ -12,7 +12,7 @@ if sys.version_info < (3,):
 
 setup(
     name='text2vec-service',
-    version='0.0.1',
+    version=__version__,
     description='Mapping a variable-length sentence to a fixed-length vector using BERT model (Server)',
     url='https://github.com/shibing624/nlp-service',
     long_description=open('README.md', 'r', encoding='utf-8').read(),

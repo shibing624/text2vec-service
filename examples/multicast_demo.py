@@ -10,6 +10,7 @@ import threading
 sys.path.append('..')
 from service.client import BertClient
 
+
 def client_clone(id, idx):
     bc = BertClient(port=int(sys.argv[1]), port_out=int(sys.argv[2]), identity=id)
     for j in bc.fetch():

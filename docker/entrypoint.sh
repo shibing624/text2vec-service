@@ -1,2 +1,2 @@
 #!/bin/sh
-nlp-service-start -num_worker=$1 -model_dir /model
+service-server-start -num_worker=$1 -model_dir /model

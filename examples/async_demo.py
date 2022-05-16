@@ -1,11 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # XuMing(xuming624@qq.com)
-
-# $
-# $ pip install nlp-service
-# $
-
 # using BertClient in async way
 
 import sys
@@ -44,6 +39,7 @@ if __name__ == '__main__':
     # sending order is NOT preserved!
     for v in bc.fetch():
         print('received %s, shape %s' % (v.id, v.content.shape))
+
 
     # finally let's do encode-fetch at the same time but in async mode
     # we do that by building an endless data stream, generating data in an extremely fast speed

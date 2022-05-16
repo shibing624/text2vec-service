@@ -10,7 +10,6 @@ import numpy as np
 sys.path.append('..')
 from service.client import BertClient
 
-prefix_q = '##### **Q:** '
 topk = 5
 questions = [
     '如何更换花呗绑定银行卡',
