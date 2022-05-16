@@ -11,7 +11,7 @@ if sys.version_info < (3,):
     sys.exit('Sorry, Python3 is required.')
 
 setup(
-    name='nlpservice',
+    name='text2vec-service',
     version='0.0.1',
     description='Mapping a variable-length sentence to a fixed-length vector using BERT model (Server)',
     url='https://github.com/shibing624/nlp-service',
@@ -45,9 +45,9 @@ setup(
         'Topic :: Scientific/Engineering :: Artificial Intelligence',
     ),
     entry_points={
-        'console_scripts': ['nlp-service-start=service.server.cli:main',
-                            'nlp-service-benchmark=service.server.cli:benchmark',
-                            'nlp-service-terminate=service.server.cli:terminate'],
+        'console_scripts': ['service-server-start=service.server.cli:main',
+                            'service-server-benchmark=service.server.cli:benchmark',
+                            'service-server-terminate=service.server.cli:terminate'],
     },
     keywords='bert, nlp, pytorch, machine learning, sentence encoding embedding serving',
 )
