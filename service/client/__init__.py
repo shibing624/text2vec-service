@@ -105,9 +105,6 @@ class BertClient(object):
                 else:
                     self.length_limit = None
 
-            if check_token_info:
-                self.token_info_available = bool(s_status['show_tokens_to_client'])
-
             if show_server_config:
                 self._print_dict(s_status, 'server config:')
 

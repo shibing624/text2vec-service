@@ -43,8 +43,6 @@ def get_args_parser():
     group2.add_argument('-cased_tokenization', dest='do_lower_case', action='store_false', default=True,
                         help='Whether tokenizer should skip the default lowercasing and accent removal.'
                              'Should be used for e.g. the multilingual cased pretrained BERT model.')
-    group2.add_argument('-show_tokens_to_client', action='store_true', default=False,
-                        help='sending tokenization results to client')
 
     group3 = parser.add_argument_group('Serving Configs',
                                        'config how server utilizes GPU/CPU resources')

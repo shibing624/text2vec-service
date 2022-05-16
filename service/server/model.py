@@ -9,7 +9,7 @@ from text2vec import SentenceModel
 
 def build_model(model_dir):
     try:
-        logger.info('model dir: %s' % model_dir)
+        logger.info('model_dir: %s' % model_dir)
         model = SentenceModel(model_dir)
         return model
     except Exception as e:

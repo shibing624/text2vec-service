@@ -441,7 +441,6 @@ class BertWorker(Process):
         self.gpu_memory_fraction = args.gpu_memory_fraction
         self.model = model
         self.use_fp16 = args.fp16
-        self.show_tokens_to_client = args.show_tokens_to_client
         self.is_ready = multiprocessing.Event()
 
     def close(self):
