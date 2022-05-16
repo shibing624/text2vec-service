@@ -1,5 +1,5 @@
-[![PyPI version](https://badge.fury.io/py/nlp-service.svg)](https://badge.fury.io/py/nlp-service)
-[![Downloads](https://pepy.tech/badge/nlp-service)](https://pepy.tech/project/nlp-service)
+[![PyPI version](https://badge.fury.io/py/text2vec-service.svg)](https://badge.fury.io/py/text2vec-service)
+[![Downloads](https://pepy.tech/badge/text2vec-service)](https://pepy.tech/project/text2vec-service)
 [![Contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](CONTRIBUTING.md)
 [![GitHub contributors](https://img.shields.io/github/contributors/shibing624/nlp-service.svg)](https://github.com/shibing624/nlp-service/graphs/contributors)
 [![License Apache 2.0](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
@@ -22,6 +22,7 @@ Bert model service.
 
 
 # Feature
+BERT service with C/S module.
 
 # Install
 ```

@@ -4,12 +4,14 @@
 @description: 
 """
 import os
-import sys
 import time
+from loguru import logger
+import sys
 
 sys.path.append('..')
 from sentence_transformers import SentenceTransformer
 
+logger.add('test.log')
 pwd_path = os.path.abspath(os.path.dirname(__file__))
 
 
@@ -27,5 +29,5 @@ def test_local_model_speed():
         assert r is not None
         print('result shape', r.shape)
         time_t = time.time() - start_t
-        print('encoding %d sentences, spend %.2fs, %4d samples/s, %6d tokens/s' %
-              (len(tmp), time_t, int(len(tmp) / time_t), int(c_num_tokens / time_t)))
+        logger.info('encoding %d sentences, spend %.2fs, %4d samples/s, %6d tokens/s' %
+                    (len(tmp), time_t, int(len(tmp) / time_t), int(c_num_tokens / time_t)))

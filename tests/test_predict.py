@@ -3,11 +3,14 @@
 @author:XuMing(xuming624@qq.com)
 @description: 
 """
-import sys
 import time
+from loguru import logger
+import sys
 
 sys.path.append('..')
 from service.client import BertClient
+
+logger.add('test.log')
 
 
 def test_get_emb():
@@ -18,3 +21,4 @@ def test_get_emb():
     with BertClient(show_server_config=True) as bc:
         r = bc.encode(data)
         print(type(r), r, r[0], r.shape)
+        logger.info(r.shape)
