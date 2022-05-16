@@ -34,7 +34,7 @@ class BenchmarkClient(threading.Thread):
 def run_benchmark(args):
     import sys
 
-    sys.path.append('..')
+    sys.path.append('../..')
     from service.server import BertServer
     # load vocabulary
     with open(args.client_vocab_file, encoding='utf8') as fp:

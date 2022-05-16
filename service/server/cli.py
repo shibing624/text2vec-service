@@ -5,7 +5,7 @@
 """
 import sys
 
-sys.path.append('..')
+sys.path.append('../..')
 from service.server import BertServer
 from service.server.benchmark import run_benchmark
 from service.server.helper import (
