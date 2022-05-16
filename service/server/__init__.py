@@ -62,9 +62,9 @@ class BertServer(threading.Thread):
         }
         self.processes = []
         logger.info('load nlp model, could take a while...')
-        with Pool(processes=1) as pool:
-            # must be done in another process
-            self.model = pool.apply(build_model, (self.model_dir,))
+        # with Pool(processes=1) as pool:
+        #     self.model = pool.apply(build_model, (self.model_dir,))
+        self.model = build_model(self.model_dir, self.max_seq_len)
         if self.model:
             logger.info(self.model)
         else:
