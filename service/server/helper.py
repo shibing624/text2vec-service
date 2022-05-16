@@ -32,12 +32,11 @@ def check_max_seq_len(value):
 def get_args_parser():
     parser = argparse.ArgumentParser(description='Start a NlpServer for serving')
 
-    group1 = parser.add_argument_group('File Paths',
-                                       'config the path, checkpoint and filename of a pretrained/fine-tuned BERT model')
+    group1 = parser.add_argument_group('File Paths', 'pretrained/fine-tuned BERT model')
     group1.add_argument('-model_dir', type=str, default='shibing624/text2vec-base-chinese',
                         help='directory of a pretrained or fine-tuned BERT model')
-    group2 = parser.add_argument_group('BERT Parameters',
-                                       'config how BERT model and pooling works')
+
+    group2 = parser.add_argument_group('BERT Parameters', 'config how BERT model and pooling works')
     group2.add_argument('-max_seq_len', type=check_max_seq_len, default=25,
                         help='maximum length of a sequence, longer sequence will be trimmed on the right side. '
                              'set it to NONE for dynamically using the longest sequence in a (mini)batch.')
@@ -83,9 +82,6 @@ def get_args_parser():
     group3.add_argument('-prefetch_size', type=int, default=10,
                         help='the number of batches to prefetch on each worker. When running on a CPU-only machine, \
                         this is set to 0 for comparability')
-    parser.add_argument('-verbose', action='store_true', default=False,
-                        help='turn on tensorflow logging for debug')
-    parser.add_argument('-version', type=str, default='0.0.1', help='version')
     return parser
 
 

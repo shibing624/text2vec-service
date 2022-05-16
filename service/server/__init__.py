@@ -255,7 +255,6 @@ class BertSink(Process):
         self.port = args.port_out
         self.exit_flag = multiprocessing.Event()
         self.front_sink_addr = front_sink_addr
-        self.verbose = args.verbose
         self.max_seq_len = args.max_seq_len
         self.is_ready = multiprocessing.Event()
 
@@ -440,7 +439,6 @@ class BertWorker(Process):
         self.sink_address = sink_address
         self.prefetch_size = args.prefetch_size if self.device_id > 0 else None  # set to zero for CPU-worker
         self.gpu_memory_fraction = args.gpu_memory_fraction
-        self.verbose = args.verbose
         self.model = model
         self.use_fp16 = args.fp16
         self.show_tokens_to_client = args.show_tokens_to_client
