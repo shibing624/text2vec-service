@@ -8,6 +8,7 @@ import sys
 import multiprocessing
 import threading
 import time
+import torch
 from collections import defaultdict
 from datetime import datetime
 from multiprocessing import Process
@@ -28,6 +29,8 @@ from service.server.helper import (
 )
 from service.server.http_proxy import BertHTTPProxy
 from service.server.zmq_decor import multi_socket
+
+torch.multiprocessing.set_start_method('spawn')
 
 
 class ServerCmd:
@@ -62,13 +65,12 @@ class BertServer(threading.Thread):
         }
         self.processes = []
         logger.info('load nlp model, could take a while...')
-        # with Pool(processes=1) as pool:
-        #     self.model = pool.apply(build_model, (self.model_dir,))
-        self.model = build_model(self.model_dir, self.max_seq_len)
+        with Pool(processes=1) as pool:
+            self.model = pool.apply(build_model, (self.model_dir, self.max_seq_len,))
         if self.model:
             logger.info(self.model)
         else:
-            raise FileNotFoundError('model fails and returns empty result')
+            logger.warning(f'model not loaded, model: {self.model}')
         self.is_ready = threading.Event()
 
     def __enter__(self):
