@@ -329,7 +329,6 @@ class BertClient(object):
         :param `**kwargs`: the rest parameters please refer to `encode()`
         :return: a generator that yields encoded vectors in ndarray, where the request id can be used to determine the order
         :rtype: Iterator[tuple(int, numpy.ndarray)]
-
         """
 
         def run():

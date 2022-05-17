@@ -22,6 +22,7 @@ def main():
 
 
 def benchmark():
+    torch.multiprocessing.set_start_method('spawn')
     args = get_run_args(get_benchmark_parser)
     run_benchmark(args)
 

@@ -24,6 +24,7 @@ if __name__ == '__main__':
 
     data = ['如何更换花呗绑定银行卡',
             '花呗更改绑定银行卡']
+    start_t = time.time()
     send_without_block(bc, data, num_repeat)
     num_expect_vecs = len(data) * num_repeat
 
@@ -31,6 +32,9 @@ if __name__ == '__main__':
     print('now waiting until all results are available...')
     vecs = bc.fetch_all(concat=True)
     print('received %s, expected: %d' % (vecs.shape, num_expect_vecs))
+    time_t = time.time() - start_t
+    print('encoding %d sentences, spend %.2fs, %4d samples/s' %
+          (num_expect_vecs, time_t, int(num_expect_vecs / time_t)))
 
     # now send it again
     send_without_block(bc, data, num_repeat)
@@ -41,11 +45,13 @@ if __name__ == '__main__':
         print(v)
         print('received %s, shape %s' % (v.id, v.embedding.shape))
 
+
     # finally let's do encode-fetch at the same time but in async mode
     # we do that by building an endless data stream, generating data in an extremely fast speed
     def text_gen():
         while True:
             yield data
 
+
     for j in bc.encode_async(text_gen(), max_num_batch=20):
-        print('received %d : %s' % (j.id, j.embedding))
+        print('received %d : %s' % (j.id, j.embedding.shape))

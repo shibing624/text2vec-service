@@ -1128,3 +1128,17 @@ If you use bert-as-service in a scientific publication, we would appreciate refe
   year={2018}
 }
 ```
+num_client 1
+num_worker 1
+num_gpu 1
+local QPS 1613
+remote QPS 267
+
+num_client 1
+num_worker 4
+num_gpu 4
+local QPS 1645
+remote QPS 276
+
+num_client 4
+

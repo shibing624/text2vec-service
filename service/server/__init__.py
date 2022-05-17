@@ -313,7 +313,7 @@ class BertSink(Process):
                     logger.error('received a wrongly-formatted request (expected 4 frames, got %d)' % len(msg))
                     logger.error('\n'.join('field %d: %s' % (idx, k) for idx, k in enumerate(msg)), exc_info=True)
 
-                logger.info('collect %s %s (E:%d/T:%d/A:%d)' % (msg[3], job_id,
+                logger.debug('collect %s %s (E:%d/T:%d/A:%d)' % (msg[3], job_id,
                                                                 pending_jobs[job_id].progress_embeds,
                                                                 pending_jobs[job_id].progress_tokens,
                                                                 pending_jobs[job_id].checksum))
@@ -324,13 +324,13 @@ class BertSink(Process):
                     job_info = client_addr + b'#' + req_id
                     # register a new job
                     pending_jobs[job_info].checksum = int(msg_info)
-                    logger.info('job register\tsize: %d\tjob id: %s' % (int(msg_info), job_info))
+                    logger.debug('job register\tsize: %d\tjob id: %s' % (int(msg_info), job_info))
                     if len(pending_jobs[job_info]._pending_embeds) > 0 \
                             and pending_jobs[job_info].final_ndarray is None:
                         pending_jobs[job_info].add_embed(None, 0)
                 elif msg_type == ServerCmd.show_config or msg_type == ServerCmd.show_status:
                     time.sleep(0.1)  # dirty fix of slow-joiner: sleep so that client receiver can connect.
-                    logger.info('send config\tclient %s' % client_addr)
+                    logger.debug('send config\tclient %s' % client_addr)
                     sender.send_multipart([client_addr, msg_info, req_id])
 
             # check if there are finished jobs, then send it back to workers
@@ -339,7 +339,7 @@ class BertSink(Process):
                 client_addr, req_id = job_info.split(b'#')
                 x, x_info = tmp.result
                 sender.send_multipart([client_addr, x_info, x, req_id])
-                logger.info('send back\tsize: %d\tjob id: %s' % (tmp.checksum, job_info))
+                logger.debug('send back\tsize: %d\tjob id: %s' % (tmp.checksum, job_info))
                 # release the job
                 tmp.clear()
                 pending_jobs.pop(job_info)
@@ -468,7 +468,7 @@ class BertWorker(Process):
         sink_token.connect(self.sink_address)
         for r in self.model_predict(receivers, sink_token):
             send_ndarray(sink_embed, r['client_id'], r['encodes'], ServerCmd.data_embed)
-            logger.info('job done\tsize: %s\tclient: %s' % (r['encodes'].shape, r['client_id']))
+            logger.debug('job done\tsize: %s\tclient: %s' % (r['encodes'].shape, r['client_id']))
 
     def model_predict(self, socks, sink):
         poller = zmq.Poller()
@@ -484,7 +484,7 @@ class BertWorker(Process):
                 if sock in events:
                     client_id, raw_msg = sock.recv_multipart()
                     msg = jsonapi.loads(raw_msg)
-                    logger.info('new job\tsocket: %d\tsize: %d\tclient: %s' % (sock_idx, len(msg), client_id))
+                    logger.debug('new job\tsocket: %d\tsize: %d\tclient: %s' % (sock_idx, len(msg), client_id))
                     yield {
                         'client_id': client_id,
                         'encodes': self.model.encode(msg),
