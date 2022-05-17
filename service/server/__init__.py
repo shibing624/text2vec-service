@@ -169,7 +169,7 @@ class BertServer(threading.Thread):
                 if msg == ServerCmd.terminate:
                     break
                 elif msg == ServerCmd.show_config or msg == ServerCmd.show_status:
-                    logger.info('new config request\treq id: %d\tclient: %s' % (int(req_id), client))
+                    logger.debug('new config request\treq id: %d\tclient: %s' % (int(req_id), client))
                     status_runtime = {'client': client.decode('ascii'),
                                       'num_process': len(self.processes),
                                       'ventilator -> worker': addr_backend_list,
@@ -184,7 +184,7 @@ class BertServer(threading.Thread):
                                                                      **self.status_args,
                                                                      **self.status_static}), req_id])
                 else:
-                    logger.info('new encode request\treq id: %d\tsize: %d\tclient: %s' %
+                    logger.debug('new encode request\treq id: %d\tsize: %d\tclient: %s' %
                                 (int(req_id), int(msg_len), client))
                     # register a new job at sink
                     sink.send_multipart([client, ServerCmd.new_job, msg_len, req_id])
@@ -460,17 +460,19 @@ class BertWorker(Process):
         if self.model:
             logger.info('use device %s, loaded model.' %
                         ('cpu' if self.device_id < 0 else ('gpu: %d' % self.device_id)))
+        else:
+            logger.error('no model loaded.')
 
         for sock, addr in zip(receivers, self.worker_address):
             sock.connect(addr)
 
         sink_embed.connect(self.sink_address)
         sink_token.connect(self.sink_address)
-        for r in self.model_predict(receivers, sink_token):
+        for r in self.model_predict(receivers):
             send_ndarray(sink_embed, r['client_id'], r['encodes'], ServerCmd.data_embed)
             logger.debug('job done\tsize: %s\tclient: %s' % (r['encodes'].shape, r['client_id']))
 
-    def model_predict(self, socks, sink):
+    def model_predict(self, socks):
         poller = zmq.Poller()
         for sock in socks:
             poller.register(sock, zmq.POLLIN)
