@@ -6,7 +6,6 @@ import uuid
 from collections import OrderedDict
 
 import zmq
-from termcolor import colored
 from zmq.utils import jsonapi
 
 
@@ -156,7 +155,7 @@ class TimeContext:
 
     def __exit__(self, typ, value, traceback):
         self.duration = time.perf_counter() - self.start
-        print(colored('    [%3.3f secs]' % self.duration, 'green'), flush=True)
+        print('    [%3.3f secs]' % self.duration, flush=True)
 
 
 class CappedHistogram:

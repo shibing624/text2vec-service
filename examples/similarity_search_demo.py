@@ -4,7 +4,6 @@
 
 # simple similarity search on FAQ
 import sys
-from termcolor import colored
 import numpy as np
 
 sys.path.append('..')
@@ -22,17 +21,17 @@ questions = [
     '人们在玩板球',
     '男人们在打板球',
 ]
-print('%d questions loaded, avg. len of %d' % (len(questions), np.mean([len(d.split()) for d in questions])))
+print('%d questions loaded, avg. len of %d' % (len(questions), np.mean([len(d) for d in questions])))
 
 bc = BertClient()
 doc_vecs = bc.encode(questions)
 
 while True:
-    query = input(colored('your question: ', 'green'))
+    query = input('your question: ')
     query_vec = bc.encode([query])[0]
     # compute normalized dot product as score
     score = np.sum(query_vec * doc_vecs, axis=1) / np.linalg.norm(doc_vecs, axis=1)
     topk_idx = np.argsort(score)[::-1][:topk]
-    print('top %d questions similar to "%s"' % (topk, colored(query, 'green')))
+    print('top %d questions similar to "%s"' % (topk, query))
     for idx in topk_idx:
-        print('> %s\t%s' % (colored('%.1f' % score[idx], 'cyan'), colored(questions[idx], 'yellow')))
+        print('> %s\t%s' % ('%.1f' % score[idx], questions[idx]))
