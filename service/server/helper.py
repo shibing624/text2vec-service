@@ -50,7 +50,7 @@ def get_args_parser():
                         help='server port for receiving data from client')
     group3.add_argument('-port_out', '-port_result', type=int, default=5556,
                         help='server port for sending result to client')
-    group3.add_argument('-http_port', type=int, default=5557,
+    group3.add_argument('-http_port', type=int, default=None,
                         help='server port for receiving HTTP requests')
     group3.add_argument('-http_max_connect', type=int, default=10,
                         help='maximum number of concurrent HTTP connections')
@@ -123,7 +123,9 @@ def get_benchmark_parser():
 
     group.add_argument('-wait_till_ready', type=int, default=10,
                        help='seconds to wait until server is ready to serve')
-    group.add_argument('-client_vocab_file', type=str, default='README.md',
+    pwd_path = os.path.dirname(os.path.realpath(__file__))
+    default_readme = os.path.join(pwd_path, '../../README.md')
+    group.add_argument('-client_vocab_file', type=str, default=default_readme,
                        help='file path for building client vocabulary')
     group.add_argument('-num_repeat', type=int, default=10,
                        help='number of repeats per experiment (must >2), '
@@ -135,7 +137,7 @@ def get_shutdown_parser():
     parser = argparse.ArgumentParser()
     parser.description = 'Shutting down a NlpServer instance running on a specific port'
 
-    parser.add_argument('-ip', type=str, default='localhost',
+    parser.add_argument('-ip', type=str, default='0.0.0.0',
                         help='the ip address that a NlpServer is running on')
     parser.add_argument('-port', '-port_in', '-port_data', type=int, required=True,
                         help='the port that a NlpServer is running on')

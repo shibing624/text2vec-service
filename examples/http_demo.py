@@ -17,4 +17,4 @@ if __name__ == '__main__':
             "texts": ["你好", "啥意思"],
         }
     )
-    print(r.text)
+    print(type(r.json()), r.json())

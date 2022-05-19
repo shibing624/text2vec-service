@@ -60,7 +60,7 @@ class BertServer(threading.Thread):
             'server_start_time': str(datetime.now()),
         }
         self.processes = []
-        logger.info('load nlp model, could take a while...')
+        logger.info('load model, could take a while...')
         # with Pool(processes=1) as pool:
         #     self.model = pool.apply(build_model, (self.model_dir, self.max_seq_len,))
         self.model = build_model(self.model_dir, self.max_seq_len)

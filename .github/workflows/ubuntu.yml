@@ -27,11 +27,11 @@ jobs:
         with:
           path: ~/.cache/huggingface
           key: ${{ runner.os }}-huggingface-
-      - name: Cache nlp-service models
+      - name: Cache text2vec-service models
         uses: actions/cache@v2
         with:
-          path: ~/.nlp-service
-          key: ${{ runner.os }}-nlp-service-
+          path: ~/.text2vec-service
+          key: ${{ runner.os }}-text2vec-service-
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
@@ -43,8 +43,8 @@ jobs:
           pip install torch
       - name: Install from pypi
         run: |
-          pip install -U nlp-service
-          pip uninstall -y nlp-service
+          pip install -U text2vec-service
+          pip uninstall -y text2vec-service
       - name: Install dependencies
         run: |
           pip install -r requirements.txt

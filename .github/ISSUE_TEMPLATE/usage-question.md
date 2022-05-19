@@ -1,6 +1,6 @@
 ---
 name: Usage Question
-about: Ask a question about nlp-service usage
+about: Ask a question about project usage
 title: ''
 labels: question
 assignees: ''

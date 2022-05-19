@@ -14,7 +14,7 @@ setup(
     name='text2vec-service',
     version=__version__,
     description='Mapping a variable-length sentence to a fixed-length vector using BERT model (Server)',
-    url='https://github.com/shibing624/nlp-service',
+    url='https://github.com/shibing624/text2vec-service',
     long_description=open('README.md', 'r', encoding='utf-8').read(),
     long_description_content_type='text/markdown',
     author='XuMing',
