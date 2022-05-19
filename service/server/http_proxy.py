@@ -20,8 +20,7 @@ class BertHTTPProxy(Process):
             from flask_json import FlaskJSON, as_json, JsonError
         except ImportError:
             raise ImportError('BertClient or Flask or its dependencies are not fully installed, '
-                              'they are required for serving HTTP requests.'
-                              'Please use "pip install -U nlp-server[http]" to install it.')
+                              'they are required for serving HTTP requests.')
 
         # support up to 10 concurrent HTTP requests
         bc = ConcurrentBertClient(max_concurrency=self.args.http_max_connect,

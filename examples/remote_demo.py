@@ -3,7 +3,6 @@
 # XuMing(xuming624@qq.com)
 
 import sys
-import time
 
 sys.path.append('..')
 from service.client import BertClient

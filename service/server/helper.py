@@ -50,7 +50,7 @@ def get_args_parser():
                         help='server port for receiving data from client')
     group3.add_argument('-port_out', '-port_result', type=int, default=5556,
                         help='server port for sending result to client')
-    group3.add_argument('-http_port', type=int, default=None,
+    group3.add_argument('-http_port', type=int, default=5557,
                         help='server port for receiving HTTP requests')
     group3.add_argument('-http_max_connect', type=int, default=10,
                         help='maximum number of concurrent HTTP connections')

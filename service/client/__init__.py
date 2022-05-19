@@ -60,7 +60,6 @@ class BertClient(object):
         :param ignore_all_checks: ignore all checks, set it to True if you are not sure whether the server is ready when constructing BertClient()
         :param timeout: set the timeout (milliseconds) for receive operation on the client, -1 means no timeout and wait until result returns
         """
-
         self.context = zmq.Context()
         self.sender = self.context.socket(zmq.PUSH)
         self.sender.setsockopt(zmq.LINGER, 0)
@@ -70,6 +69,8 @@ class BertClient(object):
         self.receiver = self.context.socket(zmq.SUB)
         self.receiver.setsockopt(zmq.LINGER, 0)
         self.receiver.setsockopt(zmq.SUBSCRIBE, self.identity)
+        port = int(port)
+        port_out = int(port_out)
         self.receiver.connect('tcp://%s:%d' % (ip, port_out))
 
         self.request_id = 0
