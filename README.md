@@ -158,7 +158,6 @@ In this example, serve a fine-tuned BERT model.
 service-server-start -model_dir shibing624/bert-base-chinese
 ```
 
-The full list of examples can be found in [`examples/`](examples). 
 
 ### Asynchronous encoding
 
