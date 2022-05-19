@@ -241,7 +241,7 @@ server in a separate process and then reuse a `BertClient` instance as a proxy t
 
 To enable the build-in HTTP server, we need to first (re)install the server with some extra Python dependencies:
 ```bash
-pip install -U text2vec-service[http]
+pip install flask flask-compress flask-cors flask-json
 ```
 
 Then simply start the server with:
