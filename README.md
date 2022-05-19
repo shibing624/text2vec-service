@@ -65,7 +65,7 @@ Now you can encode sentences simply as follows:
 ```python
 from service.client import BertClient
 bc = BertClient()
-bc.encode(['First do it', 'then do it right', 'then do it better'])
+bc.encode(['如何更换花呗绑定银行卡', '花呗更改绑定银行卡'])
 ```
 It will return a `ndarray` (or `List[List[float]]` if you wish), in which each row is a fixed-length vector 
 representing a sentence. Having thousands of sentences? Just `encode`! *Don't even bother to batch*, 
@@ -80,7 +80,7 @@ One may also start the service on one (GPU) machine and call it from another (CP
 # on another CPU machine
 from service.client import BertClient
 bc = BertClient(ip='xx.xx.xx.xx')  # ip address of the GPU machine
-bc.encode(['First do it', 'then do it right', 'then do it better'])
+bc.encode(['如何更换花呗绑定银行卡', '花呗更改绑定银行卡'])
 ```
 
 
@@ -263,7 +263,7 @@ example using `curl`:
 ```bash
 curl -X POST http://xx.xx.xx.xx:8081/encode \
   -H 'content-type: application/json' \
-  -d '{"id": 123,"texts": ["hello world"]}'
+  -d '{"id": 123,"texts": ['如何更换花呗绑定银行卡', '花呗更改绑定银行卡']}'
 ```
 , which returns a JSON:
 ```json
