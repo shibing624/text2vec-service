@@ -417,12 +417,9 @@ class ConcurrentBertClient(BertClient):
 
         """
         try:
-            from bert_serving.client import BertClient
+            from service.client import BertClient
         except ImportError:
-            raise ImportError('BertClient module is not available, it is required for serving HTTP requests.'
-                              'Please use "pip install -U nlp-client" to install it.'
-                              'If you do not want to use it as an HTTP server, '
-                              'then remove "-http_port" from the command line.')
+            raise ImportError('BertClient module is not available, it is required for serving HTTP requests.')
 
         self.available_bc = [BertClient(**kwargs) for _ in range(max_concurrency)]
         self.max_concurrency = max_concurrency
