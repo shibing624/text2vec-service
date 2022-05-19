@@ -32,7 +32,7 @@ setup(
         'numpy',
     ],
     extras_require={
-        'pytorch': ['torch'],
+        'torch': ['torch'],
         'http': ['flask', 'flask-compress', 'flask-cors', 'flask-json']
     },
     classifiers=(

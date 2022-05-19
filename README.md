@@ -25,17 +25,20 @@ Bert model to vector service.
 BERT service with C/S.
 
 # Install
-```
+```shell
 pip install torch # conda install pytorch
 pip install -U text2vec-service
 ```
 
 or
 
-```
+```shell
+pip install torch # conda install pytorch
+pip install -r requirements.txt
+
 git clone https://github.com/shibing624/text2vec-service.git
 cd text2vec-service
-python setup.py install
+pip install --no-deps .
 ```
 
 # Usage
