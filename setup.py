@@ -28,7 +28,7 @@ setup(
         'loguru',
         'GPUtil>=1.3.0',
         'text2vec',
-        'transformers>=4.6.0',
+        'transformers',
         'numpy',
     ],
     extras_require={
